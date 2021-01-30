@@ -26,7 +26,7 @@ class Calendar(Popup):
 
     def create_calendar(self):
         self.day_str = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
-        self.month_str = ['Enero', 'Febreo', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
+        self.month_str = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
                           'Octubre', 'Noviembre', 'Diciembre']
 
         self.dy = calendar.monthcalendar(self.year, self.month)
@@ -77,12 +77,19 @@ class Calendar(Popup):
         recordatorio = TextInput()
         recordatorio.add_widget(TextInput())
         self.root.add_widget(recordatorio)
-        BtnGuardar = Button(text="Guardar Recordatorio")
-        self.root.add_widget(BtnGuardar)
-        BtnGuardar.bind(self.Guardar(self))
+        b = Button(text="Guardar recordatorio")
+        self.root.add_widget(b)
+       # b.bind(on_release=self.Guardar)
 
-    def Guardar(self, event):
+    def Guardar(self):
         self.on_dismiss()
+
+    def on_month(self, widget, event):
+        self.create_calendar()
+
+    def on_year(self, widget, event):
+        self.create_calendar()
+
 
 class Calendario(App):
     def build(self):
