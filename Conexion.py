@@ -21,4 +21,4 @@ class conexion():
         if query.exec_():
             print("Insercion correcta")
         else:
-            print("Error:", query.lastError().text())
+            print("Error inserccion:", query.lastError().text())

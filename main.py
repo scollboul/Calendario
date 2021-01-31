@@ -80,7 +80,7 @@ class Calendar(Popup):
         recordatorio.add_widget(TextInput())
         Rec.append(self.day)
         Rec.append(str(recordatorio.text))
-        b.bind(on_press=Conexion.conexion.Altrecor(Rec))
+        #b.bind(on_press=Conexion.conexion.Altrecor(Rec))
 
     def on_month(self, widget, event):
         self.create_calendar()
