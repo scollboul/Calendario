@@ -10,6 +10,7 @@ import calendar
 from datetime import datetime
 from kivy.uix.textinput import TextInput
 import Conexion
+import var
 
 
 class Calendar(Popup):
@@ -104,6 +105,7 @@ class Calendario(App):
         # Do something on close of popup
         print("Dia selecionado ", str(self.popup.day) + '/' + str(self.popup.month) + '/' + str(self.popup.year))
 
+    Conexion.conexion.db_connect(var.filebd)
 
 if __name__ == "__main__":
     Calendario().run()
