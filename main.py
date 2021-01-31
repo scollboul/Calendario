@@ -2,7 +2,6 @@ import kivy
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.properties import NumericProperty
@@ -10,7 +9,7 @@ from kivy.uix.gridlayout import GridLayout
 import calendar
 from datetime import datetime
 from kivy.uix.textinput import TextInput
-import eventos
+import Conexion
 
 
 class Calendar(Popup):
@@ -71,24 +70,24 @@ class Calendar(Popup):
 
     def date_selected(self, event):
         self.day = int(event.text)
-        self.Recordatorio()
-
-    def Recordatorio(self):
+        event.background_color = 1,0,0,1
         recordatorio = TextInput()
-        recordatorio.add_widget(TextInput())
         self.root.add_widget(recordatorio)
         b = Button(text="Guardar recordatorio")
         self.root.add_widget(b)
-       # b.bind(on_release=self.Guardar)
-
-    def Guardar(self):
-        self.on_dismiss()
+        Rec = []
+        recordatorio.add_widget(TextInput())
+        Rec.append(self.day)
+        Rec.append(str(recordatorio.text))
+        b.bind(on_press=Conexion.conexion.Altrecor(Rec))
 
     def on_month(self, widget, event):
         self.create_calendar()
 
     def on_year(self, widget, event):
         self.create_calendar()
+
+
 
 
 class Calendario(App):
