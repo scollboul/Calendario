@@ -54,6 +54,9 @@ class Calendar(Popup):
         bottombox.add_widget(Button(text='<', on_release=self.change_month))
         bottombox.add_widget(Button(text='>', on_release=self.change_month))
         self.root.add_widget(bottombox)
+        recordatorio = TextInput()
+        self.root.add_widget(recordatorio)
+        recordatorio.add_widget(TextInput())
 
     def change_month(self, event):
         if event.text == '>':
@@ -72,15 +75,12 @@ class Calendar(Popup):
     def date_selected(self, event):
         self.day = int(event.text)
         event.background_color = 1,0,0,1
-        recordatorio = TextInput()
-        self.root.add_widget(recordatorio)
+
         b = Button(text="Guardar recordatorio")
         self.root.add_widget(b)
         Rec = []
-        recordatorio.add_widget(TextInput())
-        Rec.append(self.day)
-        Rec.append(str(recordatorio.text))
-        #b.bind(on_press=Conexion.conexion.Altrecor(Rec))
+        Rec.append(str(self.day))
+        b.bind(on_release=Conexion.conexion.Altrecor(Rec))
 
     def on_month(self, widget, event):
         self.create_calendar()
@@ -91,7 +91,7 @@ class Calendar(Popup):
 
 
 
-class Calendario(App):
+class MainApp(App):
     def build(self):
         self.popup = Calendar(month=datetime.now().month, year=datetime.now().year,
                               size_hint=(None, None), size=(500, 400))
@@ -108,4 +108,4 @@ class Calendario(App):
     Conexion.conexion.db_connect(var.filebd)
 
 if __name__ == "__main__":
-    Calendario().run()
+    MainApp().run()

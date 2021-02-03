@@ -13,9 +13,11 @@ class conexion():
         return True
     def Altrecor(Rec):
         query = QtSql.QSqlQuery()
+        print("hOLA")
         query.prepare(
             'insert to Recordatorios (Fecha, Recordatorio)'
             'VALUES (:Fecha, :Recordatorio)')
+        print(Rec)
         query.bindValue(':fecha',str(Rec[0]))
         query.bindValue(':Recordatorio',str(Rec[1]))
         if query.exec_():
