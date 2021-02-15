@@ -54,9 +54,10 @@ class Calendar(Popup):
         bottombox.add_widget(Button(text='<', on_release=self.change_month))
         bottombox.add_widget(Button(text='>', on_release=self.change_month))
         self.root.add_widget(bottombox)
-        recordatorio = TextInput()
-        self.root.add_widget(recordatorio)
-        recordatorio.add_widget(TextInput())
+        self.recordatorio = TextInput()
+        self.root.add_widget(self.recordatorio)
+        self.recordatorio.add_widget(TextInput())
+
 
     def change_month(self, event):
         if event.text == '>':
@@ -75,20 +76,22 @@ class Calendar(Popup):
     def date_selected(self, event):
         self.day = int(event.text)
         event.background_color = 1,0,0,1
-
-        b = Button(text="Guardar recordatorio")
-        self.root.add_widget(b)
         Rec = []
+        self.recordatorio= str(self.recordatorio.text)
         Rec.append(str(self.day))
-        b.bind(on_release=Conexion.conexion.Altrecor(Rec))
+        Rec.append(str(self.recordatorio))
+        Conexion.conexion.Altrecor(Rec)
+        self.recordatorio = TextInput()
+        self.root.add_widget(self.recordatorio)
+        self.recordatorio.add_widget(TextInput())
+
+
 
     def on_month(self, widget, event):
         self.create_calendar()
 
     def on_year(self, widget, event):
         self.create_calendar()
-
-
 
 
 class MainApp(App):
@@ -106,6 +109,7 @@ class MainApp(App):
         print("Dia selecionado ", str(self.popup.day) + '/' + str(self.popup.month) + '/' + str(self.popup.year))
 
     Conexion.conexion.db_connect(var.filebd)
+    Conexion.conexion.MostrarRecorddatorios()
 
 if __name__ == "__main__":
     MainApp().run()

@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtSql
+import var
 class conexion():
     def db_connect(filename):
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
@@ -11,16 +12,29 @@ class conexion():
         else:
             print('Conexión Establecida')
         return True
+
     def Altrecor(Rec):
+        query = QtSql.QSqlQuery()
+        query.prepare(
+            'insert into Recordatorios (Fecha, Recordatorio)'
+            'VALUES (:Fecha, :Recordatorio)')
+        query.bindValue(':Fecha',str(Rec[0]))
+        query.bindValue(':Recordatorio',str(Rec[1]))
+        if query.exec_():
+            print("Insercion correcta")
+            conexion.MostrarRecorddatorios()
+        else:
+            print("Error inserccion:", query.lastError().text())
+
+    def MostrarRecorddatorios():
         query = QtSql.QSqlQuery()
         print("hOLA")
         query.prepare(
-            'insert to Recordatorios (Fecha, Recordatorio)'
-            'VALUES (:Fecha, :Recordatorio)')
-        print(Rec)
-        query.bindValue(':fecha',str(Rec[0]))
-        query.bindValue(':Recordatorio',str(Rec[1]))
+            'select Fecha, Recordatorio from Recordatorios where Fecha = :Dia')
         if query.exec_():
+            while query.next():
+                recordatorio=query.value(1)
+                record.setText(str(query.value(1)))
             print("Insercion correcta")
         else:
             print("Error inserccion:", query.lastError().text())
