@@ -59,6 +59,7 @@ class Calendar(Popup):
         self.recordatorio.add_widget(TextInput())
 
 
+
     def change_month(self, event):
         if event.text == '>':
             if self.month == 12:
@@ -76,15 +77,15 @@ class Calendar(Popup):
     def date_selected(self, event):
         self.day = int(event.text)
         event.background_color = 1,0,0,1
+        Date=[]
+        Date.append(self.day)
+        Date.append(self.month)
+        Date.append(self.year)
         Rec = []
         self.recordatorio= str(self.recordatorio.text)
-        Rec.append(str(self.day))
+        Rec.append(Date)
         Rec.append(str(self.recordatorio))
         Conexion.conexion.Altrecor(Rec)
-        self.recordatorio = TextInput()
-        self.root.add_widget(self.recordatorio)
-        self.recordatorio.add_widget(TextInput())
-
 
 
     def on_month(self, widget, event):

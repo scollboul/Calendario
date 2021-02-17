@@ -15,6 +15,7 @@ class conexion():
 
     def Altrecor(Rec):
         query = QtSql.QSqlQuery()
+        print(Rec)
         query.prepare(
             'insert into Recordatorios (Fecha, Recordatorio)'
             'VALUES (:Fecha, :Recordatorio)')
@@ -28,13 +29,12 @@ class conexion():
 
     def MostrarRecorddatorios():
         query = QtSql.QSqlQuery()
-        print("hOLA")
         query.prepare(
             'select Fecha, Recordatorio from Recordatorios where Fecha = :Dia')
         if query.exec_():
             while query.next():
                 recordatorio=query.value(1)
-                record.setText(str(query.value(1)))
+
             print("Insercion correcta")
         else:
             print("Error inserccion:", query.lastError().text())
