@@ -42,7 +42,7 @@ class Calendar(Popup):
             for d in range(0, 7):
                 dateOfWeek = self.dy[wk][d]
                 if not dateOfWeek == 0:
-                    b = Button(text=str(dateOfWeek))
+                    b= Button(text=str(dateOfWeek))
                     b.bind(on_release=self.date_selected)
                 else:
                     b = Label(text='')
@@ -58,8 +58,6 @@ class Calendar(Popup):
         self.root.add_widget(self.recordatorio)
         self.recordatorio.add_widget(TextInput())
 
-
-
     def change_month(self, event):
         if event.text == '>':
             if self.month == 12:
@@ -74,9 +72,9 @@ class Calendar(Popup):
             else:
                 self.month = self.month - 1
 
-    def date_selected(self, event):
+    def date_selected(self,event):
         self.day = int(event.text)
-        event.background_color = 1,0,0,1
+        event.background_color = 1, 0, 0, 1
         Date=[]
         Date.append(self.day)
         Date.append(self.month)
@@ -86,6 +84,10 @@ class Calendar(Popup):
         Rec.append(Date)
         Rec.append(str(self.recordatorio))
         Conexion.conexion.Altrecor(Rec)
+
+
+    def eliminar(self, Rec):
+        Conexion.conexion.BajaRecord(Rec)
 
 
     def on_month(self, widget, event):
@@ -110,7 +112,6 @@ class MainApp(App):
         print("Dia selecionado ", str(self.popup.day) + '/' + str(self.popup.month) + '/' + str(self.popup.year))
 
     Conexion.conexion.db_connect(var.filebd)
-    Conexion.conexion.MostrarRecorddatorios()
 
 if __name__ == "__main__":
     MainApp().run()
