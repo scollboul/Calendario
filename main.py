@@ -19,6 +19,7 @@ class Calendar(Popup):
     year = NumericProperty(0)
     root = BoxLayout(orientation="vertical")
 
+
     def __init__(self, **kwargs):
         super(Popup, self).__init__(**kwargs)
         self.add_widget(self.root)
@@ -55,12 +56,14 @@ class Calendar(Popup):
         bottombox.add_widget(Button(text='>', on_release=self.change_month))
         self.root.add_widget(bottombox)
         BtnMosElim = BoxLayout(orientation="horizontal", size_hint=(1, None), height=40)
-        BtnMosElim.add_widget(Button(text='Mostrar', on_release=self.Mostrar))
+        BtnMosElim.add_widget(Button(text='Mostrar Recordatorios', on_release=self.Mostrar))
         BtnMosElim.add_widget(Button(text='Eliminar Recordatorios', on_release=self.eliminar))
+        BtnMosElim.add_widget(Button(text='Ocultar Recordatorios', on_release=self.Ocultar))
+       # BtnMosElim.add_widget(Button(text='Elimnar recordatorio', on_release=self.date_selected_elimnar))
         self.root.add_widget(BtnMosElim)
-        self.recordatorio = TextInput()
+        self.recordatorio = TextInput(hint_text='Recordatorio')
         self.root.add_widget(self.recordatorio)
-        self.recordatorio.add_widget(TextInput())
+
 
     def change_month(self, event):
         if event.text == '>':
@@ -88,27 +91,35 @@ class Calendar(Popup):
         Rec.append(Date)
         Rec.append(str(self.recordatorio))
         Conexion.conexion.Altrecor(Rec)
+        self.create_calendar()
         Conexion.conexion.MostrarRecordatorios(self)
 
+    # def date_selected_elimnar(self,event):
+    #     self.day = int(event.text)
+    #     event.background_color = 1, 0, 0, 1
+    #     Date=[]
+    #     Date.append(self.day)
+    #     Date.append(self.month)
+    #     Date.append(self.year)
+    #     Conexion.conexion.EliminarRecordatorio(Date)
+    #     Conexion.conexion.MostrarRecordatorios(self)
+
     def eliminar(self, event):
-        Conexion.conexion.EliminarRecor(self)
+        Conexion.conexion.EliminarRecordatorios(self)
+        self.Ocultar(event)
 
     def Mostrar(self,event):
-        recordatorios=[]
-        recordatorios=Conexion.conexion.MostrarRecordatorios(self)
-        print(recordatorios)
-        for i in recordatorios:
-            recor= Label(text=recordatorios[1])
-            fecha=Label(text=recordatorios[0])
-            self.root.add_widget(recor)
-            self.root.add_widget(fecha)
+        Conexion.conexion.MostrarRecordatorios(self)
 
+    def Ocultar(self,event):
+        self.create_calendar()
 
     def on_month(self, widget, event):
         self.create_calendar()
 
     def on_year(self, widget, event):
         self.create_calendar()
+
 
 class MainApp(App):
     def build(self):

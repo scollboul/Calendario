@@ -39,10 +39,19 @@ class conexion():
         else:
             print("Error inserccion:", query.lastError().text())
 
-    def EliminarRecor(self):
+    def EliminarRecordatorios(self):
         query = QtSql.QSqlQuery()
         query.prepare(
             'delete from Recordatorios')
+        if query.exec_():
+            while query.next():
+                print("Eliminación correcta")
+        else:
+            print("Error eliminacion:", query.lastError().text())
+    def EliminarRecordatorio(Date):
+        query = QtSql.QSqlQuery()
+        query.prepare(
+            'delete from Recordatorios where Fecha=:Date')
         if query.exec_():
             while query.next():
                 print("Eliminación correcta")
@@ -54,7 +63,19 @@ class conexion():
         query.prepare('select * from Recordatorios')
         if query.exec_():
             while query.next():
-                recordatorio=[str(query.value(0)), str(query.value(1))]
-                print(recordatorio)
-        return recordatorio
+                var.Mostrar = BoxLayout(orientation="horizontal", size_hint=(1, None), height=40)
+                var.Mostrar.add_widget(Label(text=str(query.value(1))))
+                var.Mostrar.add_widget(Label(text=str(query.value(0))))
+                self.root.add_widget(var.Mostrar)
+        else:
+            print("erro Mostrar", query.lastError().text())
 
+    def elimnarun(date):
+        query = QtSql.QSqlQuery()
+        query.prepare(
+            'delete from Recordatorios where Fecha= :date')
+        if query.exec_():
+            while query.next():
+                print("Eliminación correcta")
+        else:
+            print("Error eliminacion:", query.lastError().text())
