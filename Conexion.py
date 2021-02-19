@@ -39,16 +39,13 @@ class conexion():
         else:
             print("Error inserccion:", query.lastError().text())
 
-    def MostrarFacturas(Rec):
+    def EliminarRecor(self):
         query = QtSql.QSqlQuery()
-        print(Rec)
         query.prepare(
-            'select Fecha, Recordatorio from Recordatorios where Fecha = :Dia')
+            'delete from Recordatorios')
         if query.exec_():
             while query.next():
-                fecha=query.value(0)
-                recordatorio= query.value(1)
-
-            print("Insercion correcta")
+                print("Eliminación correcta")
         else:
-            print("Error inserccion:", query.lastError().text())
+            print("Error eliminacion:", query.lastError().text())
+
