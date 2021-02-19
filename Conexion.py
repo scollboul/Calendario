@@ -49,3 +49,12 @@ class conexion():
         else:
             print("Error eliminacion:", query.lastError().text())
 
+    def MostrarRecordatorios(self):
+        query=QtSql.QSqlQuery()
+        query.prepare('select * from Recordatorios')
+        if query.exec_():
+            while query.next():
+                recordatorio=[str(query.value(0)), str(query.value(1))]
+                print(recordatorio)
+        return recordatorio
+

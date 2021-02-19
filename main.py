@@ -55,7 +55,7 @@ class Calendar(Popup):
         bottombox.add_widget(Button(text='>', on_release=self.change_month))
         self.root.add_widget(bottombox)
         BtnMosElim = BoxLayout(orientation="horizontal", size_hint=(1, None), height=40)
-        BtnMosElim.add_widget(Button(text='Mostrar', on_release=self.change_month))
+        BtnMosElim.add_widget(Button(text='Mostrar', on_release=self.Mostrar))
         BtnMosElim.add_widget(Button(text='Eliminar Recordatorios', on_release=self.eliminar))
         self.root.add_widget(BtnMosElim)
         self.recordatorio = TextInput()
@@ -88,10 +88,20 @@ class Calendar(Popup):
         Rec.append(Date)
         Rec.append(str(self.recordatorio))
         Conexion.conexion.Altrecor(Rec)
-
+        Conexion.conexion.MostrarRecordatorios(self)
 
     def eliminar(self, event):
         Conexion.conexion.EliminarRecor(self)
+
+    def Mostrar(self,event):
+        recordatorios=[]
+        recordatorios=Conexion.conexion.MostrarRecordatorios(self)
+        print(recordatorios)
+        for i in recordatorios:
+            recor= Label(text=recordatorios[1])
+            fecha=Label(text=recordatorios[0])
+            self.root.add_widget(recor)
+            self.root.add_widget(fecha)
 
 
     def on_month(self, widget, event):
@@ -99,7 +109,6 @@ class Calendar(Popup):
 
     def on_year(self, widget, event):
         self.create_calendar()
-
 
 class MainApp(App):
     def build(self):
