@@ -59,7 +59,6 @@ class Calendar(Popup):
         BtnMosElim.add_widget(Button(text='Mostrar Recordatorios', on_release=self.Mostrar))
         BtnMosElim.add_widget(Button(text='Eliminar Recordatorios', on_release=self.eliminar))
         BtnMosElim.add_widget(Button(text='Ocultar Recordatorios', on_release=self.Ocultar))
-       # BtnMosElim.add_widget(Button(text='Elimnar recordatorio', on_release=self.date_selected_elimnar))
         self.root.add_widget(BtnMosElim)
         self.recordatorio = TextInput(hint_text='Recordatorio')
         self.root.add_widget(self.recordatorio)
@@ -93,16 +92,6 @@ class Calendar(Popup):
         Conexion.conexion.Altrecor(Rec)
         self.create_calendar()
         Conexion.conexion.MostrarRecordatorios(self)
-
-    # def date_selected_elimnar(self,event):
-    #     self.day = int(event.text)
-    #     event.background_color = 1, 0, 0, 1
-    #     Date=[]
-    #     Date.append(self.day)
-    #     Date.append(self.month)
-    #     Date.append(self.year)
-    #     Conexion.conexion.EliminarRecordatorio(Date)
-    #     Conexion.conexion.MostrarRecordatorios(self)
 
     def eliminar(self, event):
         Conexion.conexion.EliminarRecordatorios(self)
